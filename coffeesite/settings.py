@@ -118,3 +118,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+
+# django-countries
+
+COUNTRIES_FIRST = [
+    "BR", "VN", "ID", "CO", "ET", 
+    "HN", "UG", "PE", "IN", "CF",
+    "GT", "GN", "MX", "LA", "NI",
+    "CN", "CI", "CR", "TZ", "CD",
+    "VE", "MG", "KE", "PG", "SV",
+    "YE", "PH", "RW", "KH", "BO",
+    "DO", "TG", "AO", "TH", "PA",
+    "MW",
+]
+COUNTRIES_FIRST_REPEAT = True
+COUNTRIES_FIRST_BREAK = "───────────"

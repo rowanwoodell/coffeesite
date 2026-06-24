@@ -1,0 +1,12 @@
+{% load coffeeapp_extras %}
+
+{% if roaster %}
+    <h1>{{ roaster.name }}</h1>
+    <ul>
+    {% for coffee in coffee_list %}
+        <li><a href="/coffee/{{ coffee.id }}/">{{ coffee.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No such roaster</p>
+{% endif %}

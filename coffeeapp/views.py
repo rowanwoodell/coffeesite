@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.views import generic
+from django.db.models import F
 
-from .models import Coffee
+from .models import Coffee, Roaster
 from .forms import CoffeeForm
 
 class IndexView(generic.ListView):
@@ -12,19 +13,18 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         return Coffee.objects.order_by("-roast_date")[:5]
 
-# def index(request):
-#     coffee_list = Coffee.objects.order_by("-roast_date")[:5]
-#     context = {"coffee_list": coffee_list}
-#     return render(request, "coffeeapp/index.html", context)
-
 class CoffeeDetailView(generic.DetailView):
     model = Coffee
     template_name = "coffeeapp/coffee_detail.html"
 
-# def coffee_detail(request, coffee_id):
-#     coffee = get_object_or_404(Coffee, pk=coffee_id)
-#     context = {"coffee": coffee}
-#     return render(request, "coffeeapp/coffee_detail.html", context)
+class RoasterDetailView(generic.DetailView):
+    model = Roaster
+    template_name = "coffeeapp/roaster_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["coffee_list"] = Coffee.objects.filter(roaster__pk=self.kwargs["pk"])
+        return context
 
 def new_coffee(request):
 

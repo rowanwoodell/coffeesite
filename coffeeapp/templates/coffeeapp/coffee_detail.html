@@ -2,13 +2,13 @@
 
 {% if coffee %}
     <h1>{{ coffee.name }}</h1>
-    <p>Roasted by: {{ coffee.roaster }}</p>
-    <p>Roasted: {{ coffee.roast_date }}</p>
+    <p>Roasted by: <a href="/coffee/roaster/{{ coffee.roaster.id }}/"> {{ coffee.roaster }}</a></p>
+    <p>Roasted on: {{ coffee.roast_date }}</p>
     <p>Origin: {{ coffee.origin.name }}</p>
     <p>Roast level: {{ coffee.get_roast_level_display }}</p>
     <p>Tastes like: 
         {{ coffee.tasting_notes.all|pretty_list }}
     </p>
 {% else %}
-    <p>No coffee</p>
+    <p>No such coffee</p>
 {% endif %}
