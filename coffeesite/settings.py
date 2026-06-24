@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 'location_field.apps.DefaultConfig',
     'django_countries',
-    'coffeeapp.apps.CoffeeappConfig'
+    'coffeeapp.apps.CoffeeappConfig',
+    'django_select2',
 ]
 
 MIDDLEWARE = [
@@ -120,7 +121,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 
-# django-countries
+# django_countries
 
 COUNTRIES_FIRST = [
     "BR", "VN", "ID", "CO", "ET", 

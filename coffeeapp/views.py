@@ -26,18 +26,24 @@ class RoasterDetailView(generic.DetailView):
         context["coffee_list"] = Coffee.objects.filter(roaster__pk=self.kwargs["pk"])
         return context
 
-def new_coffee(request):
+# def new_coffee(request):
 
-    if request.method == "POST":
-        form = CoffeeForm(request.POST)
+#     if request.method == "POST":
+#         form = CoffeeForm(request.POST)
 
-        if form.is_valid():
+#         if form.is_valid():
 
-            form.save()
+#             form.save()
             
-            return HttpResponseRedirect("/coffee/")
+#             return HttpResponseRedirect("/coffee/")
         
-    else:
-        form = CoffeeForm()
+#     else:
+#         form = CoffeeForm()
 
-    return render(request, "coffeeapp/new_coffee.html", {"form": form})
+#     return render(request, "coffeeapp/new_coffee.html", {"form": form})
+
+class CoffeeCreateView(generic.CreateView):
+    model = Coffee
+    form_class = CoffeeForm
+    success_url = "/coffee/"
+    template_name = "coffeeapp/new_coffee.html"

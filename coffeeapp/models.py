@@ -22,17 +22,23 @@ class Roaster(models.Model):
         return self.name
 
 class TastingNote(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
 
     def __str__(self):
         return self.name
+
+class Country(models.Model):
+    country = CountryField(unique=True)
+
+    def __str__(self):
+        return self.country.name
 
 class Coffee(models.Model):
     name = models.CharField(max_length=200)
     date_added = models.DateTimeField("date added", default=timezone.now)
     roast_date = models.DateField("roast date", default=date.today)
     roaster = models.ForeignKey(Roaster, on_delete=models.CASCADE)
-    origin = CountryField()
+    origin = models.ManyToManyField(Country)
     tasting_notes = models.ManyToManyField(TastingNote)
     roast_level = models.CharField(max_length=11, choices=ROAST_LEVEL_CHOICES, default='medium')
 
