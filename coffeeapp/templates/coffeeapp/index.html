@@ -1,0 +1,11 @@
+{% if coffee_list %}
+    <ul>
+    {% for coffee in coffee_list %}
+        <li><a href="/coffee/{{ coffee.id }}/">{{ coffee.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No coffee</p>
+{% endif %}
+
+<a href="/coffee/new/">Add a new coffee?</a>
