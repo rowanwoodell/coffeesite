@@ -16,10 +16,10 @@ class CountryWidget(s2forms.ModelSelect2MultipleWidget):
     ]
 
     # This doesn't seem to be functional at the moment
-    # attrs = {
-    #     "data-minimum-input-length": 0,
-    #     "data-placeholder": "Select a country"
-    # }
+    attrs = {
+        "data-minimum-input-length": 0,
+        "data-placeholder": "Select a country"
+    }
 
 class TastingNoteWidget(s2forms.ModelSelect2MultipleWidget):
     search_fields = [
