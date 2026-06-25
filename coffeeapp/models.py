@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 # from location_field.models.spatial import LocationField
-from django_countries.fields import CountryField
+# from django_countries.fields import CountryField
 
 from datetime import date
 
@@ -15,7 +15,7 @@ ROAST_LEVEL_CHOICES = (
 # Create your models here.
 
 class Roaster(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
     # roaster_location = LocationField(zoom=7, default=Point(1.0, 1.0))
 
     def __str__(self):
@@ -28,10 +28,10 @@ class TastingNote(models.Model):
         return self.name
 
 class Country(models.Model):
-    country = CountryField(unique=True)
+    name = models.CharField(max_length=200, unique=True)
 
     def __str__(self):
-        return self.country.name
+        return self.name
 
 class Coffee(models.Model):
     name = models.CharField(max_length=200)

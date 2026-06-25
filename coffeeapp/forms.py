@@ -1,30 +1,63 @@
 from django import forms
-from .models import Coffee, Country
+from .models import Coffee, Roaster, Country, TastingNote
 from django_select2 import forms as s2forms
 
 # class CoffeeForm(forms.Form):
 #     name = forms.CharField(label="Coffee name", max_length=200)
 
-class RoasterWidget(s2forms.ModelSelect2Widget):
+class RoasterWidget(s2forms.Select2Widget):
+    # queryset = Roaster.objects.all()
+
     search_fields = [
         "name__icontains",
     ]
 
-class CountryWidget(s2forms.ModelSelect2MultipleWidget):
-    search_fields = [
-        "country__icontains",
-    ]
+    # attrs = {
+    #     "data-maximum-selection-length": 1,
+    #     "tags": True,
+    # }
 
-    # This doesn't seem to be functional at the moment
-    attrs = {
-        "data-minimum-input-length": 0,
-        "data-placeholder": "Select a country"
-    }
+    # def value_from_datadict(self, data, files, name):
+    #     values = super().value_from_datadict(data, files, name)
+    #     pks = self.queryset.filter(**{'name__in': list(values)}).values_list('name', flat=True)
+    #     pks = set(map(str, pks))
+    #     cleaned_values = list(pks)
+    #     for val in set(values) - pks:
+    #         cleaned_values.append(self.queryset.create(name=val).pk)
+    #     return cleaned_values
 
-class TastingNoteWidget(s2forms.ModelSelect2MultipleWidget):
+class CountryWidget(s2forms.Select2TagWidget):
+    queryset = Country.objects.all()
+
     search_fields = [
         "name__icontains",
     ]
+
+    def value_from_datadict(self, data, files, name):
+        values = super().value_from_datadict(data, files, name)
+        pks = self.queryset.filter(**{'name__in': list(values)}).values_list('name', flat=True)
+        pks = set(map(str, pks))
+        cleaned_values = list(pks)
+        for val in set(values) - pks:
+            cleaned_values.append(self.queryset.create(name=val).pk)
+        return cleaned_values
+
+
+class TastingNoteWidget(s2forms.Select2TagWidget):
+    queryset = TastingNote.objects.all()
+
+    search_fields = [
+        "name__icontains",
+    ]
+    
+    def value_from_datadict(self, data, files, name):
+        values = super().value_from_datadict(data, files, name)
+        pks = self.queryset.filter(**{'name__in': list(values)}).values_list('name', flat=True)
+        pks = set(map(str, pks))
+        cleaned_values = list(pks)
+        for val in set(values) - pks:
+            cleaned_values.append(self.queryset.create(name=val).pk)
+        return cleaned_values
 
 class CoffeeForm(forms.ModelForm):
     class Meta:
